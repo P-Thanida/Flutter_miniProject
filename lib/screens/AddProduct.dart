@@ -1,9 +1,24 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertest/action/regis.dart';
 import 'package:fluttertest/screens/show.dart';
 import 'package:fluttertest/screens/login_screen.dart';
 import 'package:fluttertest/utilities/constants.dart';
+
 class AddProduct extends StatefulWidget {
+  List regis = [];
+  @override
+    void initState() {
+    // ignore: todo
+    // TODO: implement initState
+    ActionRegis().getAllRegis().then((result) {
+      print(result);
+      setstate(){
+        regis = result;
+      }
+     
+    });
+  }
   @override
   _AddProductState createState() => _AddProductState();
 }
@@ -127,6 +142,7 @@ class _AddProductState extends State<AddProduct> {
 
 //botton
   Widget _buildAddBtn() {
+ 
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10.0),
       width: double.infinity,
@@ -135,8 +151,17 @@ class _AddProductState extends State<AddProduct> {
         child: RaisedButton(
           elevation: 5.0,
           onPressed: () async {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => Show()));
+            final res = ActionRegis().addNewRegis({
+              "Name": nameController.text.trim(),
+              "Color": colorController.text.trim(),
+              "Number": numController.text.trim(),
+            });
+
+            print('test');
+           
+
+            // Navigator.pushReplacement(
+            //     context, MaterialPageRoute(builder: (context) => Show()));
           },
           padding: EdgeInsets.all(15.0),
           shape: RoundedRectangleBorder(
@@ -167,8 +192,8 @@ class _AddProductState extends State<AddProduct> {
         child: RaisedButton(
           elevation: 5.0,
           onPressed: () async {
-            Navigator.pushReplacement(
-                context, MaterialPageRoute(builder: (context) => LoginScreen()));
+            Navigator.pushReplacement(context,
+                MaterialPageRoute(builder: (context) => LoginScreen()));
           },
           padding: EdgeInsets.all(15.0),
           shape: RoundedRectangleBorder(
