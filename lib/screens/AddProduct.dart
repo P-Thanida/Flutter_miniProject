@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:fluttertest/action/regis.dart';
+import 'package:fluttertest/screens/list.dart';
 import 'package:fluttertest/screens/show.dart';
 import 'package:fluttertest/screens/login_screen.dart';
 import 'package:fluttertest/utilities/constants.dart';
@@ -8,17 +9,17 @@ import 'package:fluttertest/utilities/constants.dart';
 class AddProduct extends StatefulWidget {
   List regis = [];
   @override
-    void initState() {
+  void initState() {
     // ignore: todo
     // TODO: implement initState
     ActionRegis().getAllRegis().then((result) {
       print(result);
-      setstate(){
+      setstate() {
         regis = result;
       }
-     
     });
   }
+
   @override
   _AddProductState createState() => _AddProductState();
 }
@@ -142,7 +143,6 @@ class _AddProductState extends State<AddProduct> {
 
 //botton
   Widget _buildAddBtn() {
- 
     return Container(
       padding: EdgeInsets.symmetric(vertical: 10.0),
       width: double.infinity,
@@ -151,17 +151,14 @@ class _AddProductState extends State<AddProduct> {
         child: RaisedButton(
           elevation: 5.0,
           onPressed: () async {
-            final res = ActionRegis().addNewRegis({
+            ActionRegis().addNewRegis({
               "Name": nameController.text.trim(),
               "Color": colorController.text.trim(),
               "Number": numController.text.trim(),
             });
-
-            print('test');
-           
-
-            // Navigator.pushReplacement(
-            //     context, MaterialPageRoute(builder: (context) => Show()));
+            print('to show');
+            Navigator.pushReplacement(
+                context, MaterialPageRoute(builder: (context) => list()));
           },
           padding: EdgeInsets.all(15.0),
           shape: RoundedRectangleBorder(
