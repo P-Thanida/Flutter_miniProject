@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertest/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:fluttertest/screens/AddProduct.dart';
+import 'package:fluttertest/screens/show.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
@@ -27,7 +29,7 @@ class MyApp extends StatelessWidget {
 
           // Once complete, show your application
           if (snapshot.connectionState == ConnectionState.done) {
-            return LoginScreen();
+            return LoginScreen(); ///////////////////////////////////////////////
           }
 
           // Otherwise, show something whilst waiting for initialization to complete

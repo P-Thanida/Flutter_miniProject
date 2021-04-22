@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:fluttertest/screens/AddProduct.dart';
 import 'package:fluttertest/utilities/constants.dart'; //library firebase auth
 
 class LoginScreen extends StatefulWidget {
@@ -70,7 +71,7 @@ class _LoginScreenState extends State<LoginScreen> {
           child: TextField(
             obscureText: true,
             style: TextStyle(
-              color: Colors.black,
+              color: Colors.white,
               fontFamily: 'OpenSans',
             ),
             controller: passwordController,
@@ -114,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
             child: Checkbox(
               value: _rememberMe,
               checkColor: Colors.green,
-              activeColor: Colors.purple[400],
+              activeColor: Colors.white,
               onChanged: (value) {
                 setState(() {
                   _rememberMe = value;
@@ -139,8 +140,7 @@ class _LoginScreenState extends State<LoginScreen> {
       child: RaisedButton(
         elevation: 5.0,
         // onPressed: () => print('Login Button Pressed'),
-        //
-        //
+
         onPressed: () async {
           var signInWithEmailAndPassword = auth.signInWithEmailAndPassword(
             email: emailController.text.trim(),
@@ -149,8 +149,9 @@ class _LoginScreenState extends State<LoginScreen> {
           final result = await signInWithEmailAndPassword;
           print(result.user.email);
           print(result.user.uid); //token
+          Navigator.pushReplacement(
+              context, MaterialPageRoute(builder: (context) => AddProduct()));
         },
-
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
