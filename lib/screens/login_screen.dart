@@ -1,6 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:fluttertest/utilities/constants.dart';
+import 'package:fluttertest/utilities/constants.dart'; //library firebase auth
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -9,9 +10,14 @@ class LoginScreen extends StatefulWidget {
 
 class _LoginScreenState extends State<LoginScreen> {
   bool _rememberMe = false;
-
+  //create controller email,password
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+// create auth => firebase
+  FirebaseAuth auth = FirebaseAuth.instance;
+//email
   Widget _buildEmailTF() {
-    return Column(
+    var column = Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Text(
@@ -29,6 +35,8 @@ class _LoginScreenState extends State<LoginScreen> {
               color: Colors.white,
               fontFamily: 'OpenSans',
             ),
+            //email controller
+            controller: emailController,
             decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14.0),
@@ -43,6 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
         ),
       ],
     );
+    return column;
   }
 
   Widget _buildPasswordTF() {
@@ -64,6 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
               color: Colors.black,
               fontFamily: 'OpenSans',
             ),
+            controller: passwordController,
             decoration: InputDecoration(
               border: InputBorder.none,
               contentPadding: EdgeInsets.only(top: 14.0),
@@ -121,13 +131,26 @@ class _LoginScreenState extends State<LoginScreen> {
     );
   }
 
+//botton
   Widget _buildLoginBtn() {
     return Container(
       padding: EdgeInsets.symmetric(vertical: 25.0),
       width: double.infinity,
       child: RaisedButton(
         elevation: 5.0,
-        onPressed: () => print('Login Button Pressed'),
+        // onPressed: () => print('Login Button Pressed'),
+        //
+        //
+        onPressed: () async {
+          var signInWithEmailAndPassword = auth.signInWithEmailAndPassword(
+            email: emailController.text.trim(),
+            password: passwordController.text.trim(),
+          );
+          final result = await signInWithEmailAndPassword;
+          print(result.user.email);
+          print(result.user.uid); //token
+        },
+
         padding: EdgeInsets.all(15.0),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
@@ -146,8 +169,6 @@ class _LoginScreenState extends State<LoginScreen> {
       ),
     );
   }
-
-  
 
   @override
   Widget build(BuildContext context) {
@@ -169,10 +190,10 @@ class _LoginScreenState extends State<LoginScreen> {
                       Color(0xFF5A6E3A),
                       Color(0xFF8E9B66),
                       Color(0xFF8E9B61),
-                    //  Color(0xFFFA9E46),
-                    //  Color(0xFFF98F2A),
+                      //  Color(0xFFFA9E46),
+                      //  Color(0xFFF98F2A),
                     ],
-                    stops: [ 0.4,0.7, 0.9],
+                    stops: [0.4, 0.7, 0.9],
                   ),
                 ),
               ),
@@ -205,7 +226,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       _buildForgotPasswordBtn(),
                       _buildRememberMeCheckbox(),
                       _buildLoginBtn(),
-              
                     ],
                   ),
                 ),
