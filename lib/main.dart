@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertest/screens/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:fluttertest/screens/AddProduct.dart';
-import 'package:fluttertest/screens/show.dart';
 
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
