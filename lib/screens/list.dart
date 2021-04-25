@@ -57,22 +57,24 @@ class _listState extends State<list> {
                       padding: const EdgeInsets.all(14),
                       child: Container(
                         color: Color.fromRGBO(255, 255, 255, 0.7),
-                        width: 350,
+                        width: 330,
                         child: Column(
                           children: [
                             Padding(
                               padding: const EdgeInsets.all(10),
-                              child: Text('Name:  ${profiles[index]['Name']}'),
+                              child:
+                                  Text('Product is ${profiles[index]['Name']}'),
+                            ),
+
+                            Padding(
+                              padding: const EdgeInsets.all(10),
+                              child: Text(
+                                  'Color of product is  ${profiles[index]['Color']}'),
                             ),
                             Padding(
                               padding: const EdgeInsets.all(10),
-                              child:
-                                  Text('Color:  ${profiles[index]['Color']}'),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(10),
-                              child:
-                                  Text('Number:  ${profiles[index]['Number']}'),
+                              child: Text(
+                                  'Number of product is ${profiles[index]['Number']}'),
                             ),
 
                             // Padding(
